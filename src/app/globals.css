@@ -23,4 +23,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
+  overflow: hidden;
+}
+
+/* Hide any loading overlays */
+#__next-build-watcher,
+[data-nextjs-scroll-focus-boundary] {
+  display: contents !important;
+}
+
+/* Ensure chat is full height immediately */
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
