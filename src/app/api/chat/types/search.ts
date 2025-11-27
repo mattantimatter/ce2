@@ -58,6 +58,8 @@ export interface GoogleImageSearchResponseItem {
 }
 
 // Base response structure for Google Search API
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface SearchResult extends Record<string, any> { }
 export interface BaseGoogleSearchResponse<T> {
   kind: string;
   url?: {
@@ -85,7 +87,7 @@ export interface BaseGoogleSearchResponse<T> {
 }
 
 // Web search specific request
-export interface GoogleWebSearchRequest extends BaseGoogleSearchRequest {}
+export interface GoogleWebSearchRequest extends BaseGoogleSearchRequest { }
 
 // Image search specific request
 export interface GoogleImageSearchRequest extends BaseGoogleSearchRequest {

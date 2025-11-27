@@ -1,4 +1,4 @@
-import { Theme, ThemeMode } from "@crayonai/react-ui/ThemeProvider";
+import { ThemeMode } from "@crayonai/react-ui/ThemeProvider";
 
 export const theme = {
   "fontBody": "400 16px/1.5 Geist",

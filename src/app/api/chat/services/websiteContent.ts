@@ -95,7 +95,7 @@ export interface SummarizeWebsiteContentRequest {
 export async function summarizeWebsiteContent(
   params: SummarizeWebsiteContentRequest,
 ): Promise<string> {
-  const { content, query, timeout = 15000 } = params;
+  const { content, query } = params;
 
   if (!content) {
     return "No content available to summarize.";
@@ -105,7 +105,7 @@ export async function summarizeWebsiteContent(
   const truncatedContent =
     content.length > maxContentLength
       ? content.substring(0, maxContentLength) +
-        "... [content truncated for performance]"
+      "... [content truncated for performance]"
       : content;
 
   try {
