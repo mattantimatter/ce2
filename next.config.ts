@@ -9,8 +9,8 @@ if (typeof process !== 'undefined') {
       name === 'warning' &&
       typeof data === 'object' &&
       data !== null &&
-      data.name === 'DeprecationWarning' &&
-      data.code === 'DEP0169'
+      (data as any).name === 'DeprecationWarning' &&
+      (data as any).code === 'DEP0169'
     ) {
       return false;
     }
