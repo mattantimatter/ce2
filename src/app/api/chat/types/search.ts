@@ -58,7 +58,7 @@ export interface GoogleImageSearchResponseItem {
 }
 
 // Base response structure for Google Search API
-export interface SearchResult extends Record<string, unknown> { }
+export type SearchResult = Record<string, unknown>;
 export interface BaseGoogleSearchResponse<T> {
   kind: string;
   url?: {
