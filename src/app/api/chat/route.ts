@@ -5,6 +5,10 @@ import { DBMessage, getMessageStore } from "./messageStore";
 import { tools } from "./tools";
 import { SYSTEM_PROMPTS } from "./systemPrompts";
 
+// Force dynamic rendering
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function POST(req: NextRequest) {
   const { prompt, threadId, responseId } = (await req.json()) as {
     prompt: DBMessage;
@@ -57,4 +61,11 @@ export async function POST(req: NextRequest) {
       Connection: "keep-alive",
     },
   });
+}
+
+export async function GET() {
+  return NextResponse.json(
+    { error: "Method not allowed. This endpoint only accepts POST requests." },
+    { status: 405 }
+  );
 }
