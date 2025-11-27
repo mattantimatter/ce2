@@ -8,6 +8,7 @@ if (typeof process !== 'undefined') {
     if (
       name === 'warning' &&
       typeof data === 'object' &&
+      data !== null &&
       data.name === 'DeprecationWarning' &&
       data.code === 'DEP0169'
     ) {
