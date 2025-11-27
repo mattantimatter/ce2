@@ -14,6 +14,7 @@ if (typeof process !== 'undefined') {
     ) {
       return false;
     }
+    // @ts-expect-error - Complex typing for process.emit arguments
     return originalEmit.apply(process, [name, data, ...args]);
   };
 }
