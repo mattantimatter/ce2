@@ -2,34 +2,26 @@
 
 .chat-theme {
     
+      /* Base container styles */
       & :global(.crayon-shell-container) {
-        background-size: cover !important;
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        /* Default to dark mode background - MUST come first */
-        background-image: url("/charcoal-bg-dark.svg") !important;
-        background-color: #0a0a0a !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
 
-      /* Light mode background - Override default */
-      &:global(.crayon-theme-light),
-      &:global([data-crayon-theme="light"]) {
+      /* Light mode - COMPLETE styling */
+      &:global(.crayon-theme-light) {
         & :global(.crayon-shell-container) {
-          background-image: url("/charcoal-bg-light.svg") !important;
-          background-color: #ffffff !important;
-        }
-        
-        & :global(.crayon-shell-main) {
-          background: rgba(255, 255, 255, 0.95) !important;
+          background-image: url("/charcoal-bg-light.svg");
+          background-color: #ffffff;
         }
       }
 
-      /* Dark mode background - Override default */
-      &:global(.crayon-theme-dark),
-      &:global([data-crayon-theme="dark"]) {
+      /* Dark mode - COMPLETE styling */
+      &:global(.crayon-theme-dark) {
         & :global(.crayon-shell-container) {
-          background-image: url("/charcoal-bg-dark.svg") !important;
-          background-color: #0a0a0a !important;
+          background-image: url("/charcoal-bg-dark.svg");
+          background-color: #0a0a0a;
         }
       }
 

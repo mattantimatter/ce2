@@ -17,12 +17,9 @@ const ChatInternal = () => {
   return (
     <>
       <style>{`
-      .${portalThemeClassName} > div,
-      .${portalThemeClassName} > div > *,
-      .crayon-chart-tooltip,
-      .crayon-chart-tooltip-content {
+      .${portalThemeClassName} .crayon-chart-tooltip,
+      .${portalThemeClassName} .crayon-chart-tooltip-content {
         backdrop-filter: blur(16px);
-        background: transparent !important;
       }
     `}</style>
       <C1Chat 
