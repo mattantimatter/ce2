@@ -11,10 +11,10 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             {/* Overlay */}
             <div 
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                className="absolute inset-0 bg-black/70 backdrop-blur-md"
                 onClick={onClose}
             />
             
@@ -24,15 +24,15 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
                     {/* Left Side - Branding */}
                     <div className="w-full md:w-1/2 bg-gradient-to-br from-gray-50 to-gray-100 p-12 flex flex-col justify-center items-start">
                         <div className="mb-8">
-                            <h2 className="text-4xl font-bold text-gray-900 mb-2">thesys</h2>
+                            <h2 className="text-4xl font-bold text-gray-900 mb-2">Atom Gen</h2>
                         </div>
                         <div className="space-y-4">
                             <p className="text-gray-700 text-base leading-relaxed">
-                                We&apos;ve been using C1 by Thesys to enhance our chat UI, and it&apos;s been a game-changer. The component generation is top-notch, fast, clean, and incredibly intuitive.
+                                Atom Gen brings AI-powered conversations to life with beautiful, intuitive interfaces. Experience the future of generative UI with advanced tools, seamless integrations, and lightning-fast responses.
                             </p>
                             <div className="mt-6">
-                                <p className="text-gray-900 font-semibold">Jeel</p>
-                                <p className="text-gray-600 text-sm">Founder, Fieldcamp</p>
+                                <p className="text-gray-900 font-semibold">Your Team</p>
+                                <p className="text-gray-600 text-sm">Powered by Thesys C1</p>
                             </div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
                     {/* Right Side - Sign Up Form */}
                     <div className="w-full md:w-1/2 bg-white p-12 flex flex-col justify-center">
                         <div className="mb-8">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Demos</h2>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Atom Gen</h2>
                             <p className="text-gray-600">
-                                Explore GenUI in action with <br />
-                                C1 demos
+                                Experience AI-powered conversations <br />
+                                with advanced capabilities
                             </p>
                             <p className="text-green-600 text-sm mt-3">
-                                Claim upto 5M tokens on signup
+                                Get started with powerful AI tools
                             </p>
                         </div>
 
