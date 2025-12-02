@@ -12,7 +12,7 @@ import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
 
 const ChatInternal = () => {
-  const { portalThemeClassName, theme: currentThemeMode } = useTheme();
+  const { portalThemeClassName } = useTheme();
 
   return (
     <>
