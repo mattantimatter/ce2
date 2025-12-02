@@ -26,29 +26,46 @@
         background-image: url("/charcoal-bg-dark.svg") !important;
       }
 
-      /* FIX INPUT - Keep it fixed regardless of sidebar */
+      /* FIX 3: CENTER TEXT INPUT - Keep it fixed regardless of sidebar */
       & :global(.crayon-shell-main),
-      & :global([class*="main"]) {
+      & :global([class*="shell-main"]),
+      & :global([class*="Main"]) {
         width: 100% !important;
         max-width: 100% !important;
         margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         transition: none !important;
       }
 
+      & :global(.crayon-chat-input),
       & :global(.crayon-chat-input-container),
       & :global([class*="input-container"]),
+      & :global([class*="InputContainer"]),
       & :global(form) {
         width: 100% !important;
         max-width: 900px !important;
         margin: 0 auto !important;
         position: relative !important;
         left: 0 !important;
+        right: 0 !important;
         transform: none !important;
         transition: none !important;
       }
 
-      /* NUCLEAR OPTION - DESTROY THE GREY BOX */
+      /* FIX 2: HIDE ENTIRE SIDEBAR HEADER (Logo + Grey Box) */
       & :global(.crayon-shell-sidebar) {
+        
+        /* Hide the ENTIRE header section */
+        & > div:first-child,
+        & > *:first-child:not(button) {
+          display: none !important;
+          visibility: hidden !important;
+          height: 0 !important;
+          overflow: hidden !important;
+        }
+
         /* Fix conversation history text formatting */
         & :global(button),
         & :global(a),
@@ -61,52 +78,34 @@
           padding: 8px 12px !important;
           min-height: auto !important;
         }
-
-        /* KILL THE GREY BOX - ALL POSSIBLE SELECTORS */
-        & button:first-of-type:not([aria-label*="toggle"]):not([aria-label*="collapse"]) {
-          display: none !important;
-        }
-
-        & > div > button:first-child {
-          display: none !important;
-        }
-
-        & button[class*="new" i] {
-          display: none !important;
-        }
-
-        /* Ensure collapse button is ALWAYS visible */
-        & button[aria-label*="collapse" i],
-        & button[aria-label*="toggle" i],
-        & :global(.crayon-shell-sidebar-toggle) {
-          display: flex !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-          pointer-events: auto !important;
-        }
       }
 
-      /* Remove ALL backgrounds and borders in sidebar header */
-      & :global(.crayon-shell-sidebar) > *:first-child,
-      & :global([class*="sidebar-header"]) {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: none !important;
-        
-        & * {
-          background: transparent !important;
-          background-color: transparent !important;
-        }
+      /* FIX 1: RESTORE COLLAPSE BUTTON - Make it SUPER visible */
+      & :global(button[aria-label*="toggle" i]),
+      & :global(button[aria-label*="collapse" i]),
+      & :global(button[aria-label*="Toggle" i]),
+      & :global(button[aria-label*="Collapse" i]),
+      & :global(.crayon-shell-sidebar-toggle),
+      & :global([class*="sidebar-toggle"]),
+      & :global([class*="SidebarToggle"]) {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 9999 !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 8px !important;
+        padding: 8px !important;
+        margin: 8px !important;
+      }
 
-        & button:not([aria-label*="toggle"]):not([aria-label*="collapse"]) {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          height: 0 !important;
-          width: 0 !important;
-          position: absolute !important;
-          left: -99999px !important;
-          z-index: -1 !important;
+      /* Remove any hiding rules that might affect collapse button */
+      & :global(.crayon-shell-sidebar) {
+        & > button:first-of-type {
+          display: flex !important;
+          visibility: visible !important;
         }
       }
 }
