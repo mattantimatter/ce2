@@ -1,6 +1,6 @@
 import type { RunnableToolFunctionWithParse } from "openai/lib/RunnableFunction.mjs";
 import type { RunnableToolFunctionWithoutParse } from "openai/lib/RunnableFunction.mjs";
-import { googleImageTool } from "./tools/googleImage";
+// import { googleImageTool } from "./tools/googleImage"; // Disabled: Google API requires billing
 import { weatherTool } from "./tools/weather";
 
 /**
