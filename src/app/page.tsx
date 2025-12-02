@@ -77,8 +77,8 @@ export default function Home() {
         </button>
       </div>
 
-      <SamplePrompts />
       <ThemeProvider theme={theme} darkTheme={darkTheme} mode={currentTheme}>
+        <SamplePrompts currentTheme={currentTheme} />
         <ChatInternal />
       </ThemeProvider>
 
