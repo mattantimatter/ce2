@@ -47,9 +47,9 @@ Add `THESYS_API_KEY` as an environment variable in your platform's dashboard.
 - Separate backgrounds for light and dark modes
 
 ### ✅ Chat History
-- Sidebar shows all your previous conversations
-- Collapsible sidebar to maximize chat space
-- Persistent across sessions
+- Built-in C1Chat component includes sidebar functionality
+- View and manage your conversation history
+- Persistent across sessions (managed by C1Chat component)
 
 ### ✅ MCP Integration
 - Filesystem operations (read, write, list files)
