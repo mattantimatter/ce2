@@ -9,31 +9,65 @@
         background-repeat: no-repeat !important;
       }
 
-      /* Dark mode background */
-      &:global(.crayon-theme-dark) :global(.crayon-shell-container),
-      &:global([data-crayon-theme="dark"]) :global(.crayon-shell-container) {
-        background-image: url("/charcoal-bg-dark.svg") !important;
-        background-color: #0a0a0a !important;
-      }
-
-      /* Light mode background - FIXED */
-      &:global(.crayon-theme-light),
-      &:global([data-crayon-theme="light"]) {
-        & :global(.crayon-shell-container) {
-          background-image: url("/charcoal-bg-light.svg") !important;
-          background-color: #f5f5f5 !important;
-        }
-        
-        & :global(.crayon-shell-main),
-        & :global([class*="Main"]) {
-          background-color: #ffffff !important;
-        }
-      }
-
       /* Default to dark mode background */
       & :global(.crayon-shell-container) {
         background-image: url("/charcoal-bg-dark.svg") !important;
         background-color: #0a0a0a !important;
+      }
+
+      /* Dark mode styles */
+      &:global(.crayon-theme-dark),
+      &:global([data-crayon-theme="dark"]) {
+        & :global(.crayon-shell-container) {
+          background-image: url("/charcoal-bg-dark.svg") !important;
+          background-color: #0a0a0a !important;
+        }
+      }
+
+      /* Light mode - COMPLETE OVERHAUL */
+      &:global(.crayon-theme-light),
+      &:global([data-crayon-theme="light"]) {
+        /* Background */
+        & :global(.crayon-shell-container) {
+          background-image: url("/charcoal-bg-light.svg") !important;
+          background-color: #ffffff !important;
+        }
+        
+        /* Main content area */
+        & :global(.crayon-shell-main),
+        & :global([class*="Main"]) {
+          background-color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        /* Chat messages */
+        & :global([class*="message"]),
+        & :global([class*="Message"]) {
+          color: #171717 !important;
+          
+          &:global([class*="assistant"]),
+          &:global([class*="Assistant"]) {
+            background-color: rgba(240, 240, 240, 0.6) !important;
+          }
+
+          &:global([class*="user"]),
+          &:global([class*="User"]) {
+            background-color: rgba(200, 200, 200, 0.3) !important;
+          }
+        }
+
+        /* Input area */
+        & :global(.crayon-chat-input),
+        & :global(textarea),
+        & :global(input) {
+          background-color: rgba(255, 255, 255, 0.9) !important;
+          color: #171717 !important;
+          border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Text colors */
+        & :global(.crayon-shell-main) * {
+          color: #171717 !important;
+        }
       }
 
       /* FIX 3: CENTER TEXT INPUT - AGGRESSIVE FIX */

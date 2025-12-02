@@ -38,7 +38,14 @@ export default function Home() {
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
 
   const toggleTheme = () => {
-    setCurrentTheme(prev => prev === 'dark' ? 'light' : 'dark');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setCurrentTheme(newTheme);
+    
+    // Also update the root element class for better theme propagation
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(newTheme);
+    }
   };
 
   return (
