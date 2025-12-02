@@ -28,7 +28,7 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
                         </div>
                         <div className="space-y-4">
                             <p className="text-gray-700 text-base leading-relaxed">
-                                We've been using C1 by Thesys to enhance our chat UI, and it's been a game-changer. The component generation is top-notch, fast, clean, and incredibly intuitive.
+                                We&apos;ve been using C1 by Thesys to enhance our chat UI, and it&apos;s been a game-changer. The component generation is top-notch, fast, clean, and incredibly intuitive.
                             </p>
                             <div className="mt-6">
                                 <p className="text-gray-900 font-semibold">Jeel</p>
