@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { SAMPLE_PROMPTS } from "../api/chat/systemPrompts";
 
 export const SamplePrompts = () => {
     const handlePromptClick = (prompt: string) => {
@@ -19,24 +18,60 @@ export const SamplePrompts = () => {
         }
     };
 
+    const samplePrompts = [
+        { text: "Exciting stocks to look out for this year", emoji: "📈" },
+        { text: "Hidden travel gems to explore", emoji: "✈️" },
+        { text: "Greatest blockbusters of all time", emoji: "🎬" },
+        { text: "Tell me about global street food", emoji: "🍜" },
+    ];
+
+    const artifacts = [
+        { text: "Generate a slide on coffee culture", emoji: "📊" },
+        { text: "Generate a report on electric vehicles", emoji: "📄" },
+    ];
+
     return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-6 pointer-events-none max-w-4xl w-full px-4">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
-                Curiosity Engine 2.0
-            </h1>
-            <p className="text-white/70 text-center text-lg pointer-events-none">
-                Ask me anything - I can search the web, check weather, and find images
-            </p>
-            <div className="flex flex-wrap justify-center gap-3 pointer-events-auto">
-                {SAMPLE_PROMPTS.map((prompt, index) => (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-8 pointer-events-none max-w-4xl w-full px-4">
+            <div className="flex flex-col items-center gap-3">
+                <h1 className="text-5xl font-semibold text-white">
+                    Chat with C1
+                </h1>
+                <p className="text-gray-400 text-lg">
+                    Experience Generative UI
+                </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl pointer-events-auto">
+                {samplePrompts.map((prompt, index) => (
                     <button
                         key={index}
-                        onClick={() => handlePromptClick(prompt)}
-                        className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-xl text-sm text-white/90 hover:bg-white/20 hover:border-white/50 hover:scale-105 transition-all duration-200 cursor-pointer shadow-lg"
+                        onClick={() => handlePromptClick(prompt.text)}
+                        className="flex items-center gap-3 px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-left text-white/90 hover:bg-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
                     >
-                        {prompt}
+                        <span className="text-2xl">{prompt.emoji}</span>
+                        <span className="text-sm">{prompt.text}</span>
                     </button>
                 ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-4 w-full max-w-2xl pointer-events-auto">
+                <div className="flex items-center gap-2">
+                    <span className="text-white/70 text-sm font-medium">Generate Artifacts</span>
+                    <span className="px-2 py-0.5 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-400 text-xs font-medium">NEW</span>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                    {artifacts.map((artifact, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handlePromptClick(artifact.text)}
+                            className="flex items-center gap-3 px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-left text-white/90 hover:bg-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
+                        >
+                            <span className="text-2xl">{artifact.emoji}</span>
+                            <span className="text-sm">{artifact.text}</span>
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
