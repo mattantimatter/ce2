@@ -13,30 +13,54 @@
       &:global(.crayon-theme-dark) :global(.crayon-shell-container),
       &:global([data-crayon-theme="dark"]) :global(.crayon-shell-container) {
         background-image: url("/charcoal-bg-dark.svg") !important;
+        background-color: #0a0a0a !important;
       }
 
-      /* Light mode background */
-      &:global(.crayon-theme-light) :global(.crayon-shell-container),
-      &:global([data-crayon-theme="light"]) :global(.crayon-shell-container) {
-        background-image: url("/charcoal-bg-light.svg") !important;
+      /* Light mode background - FIXED */
+      &:global(.crayon-theme-light),
+      &:global([data-crayon-theme="light"]) {
+        & :global(.crayon-shell-container) {
+          background-image: url("/charcoal-bg-light.svg") !important;
+          background-color: #f5f5f5 !important;
+        }
+        
+        & :global(.crayon-shell-main),
+        & :global([class*="Main"]) {
+          background-color: #ffffff !important;
+        }
       }
 
       /* Default to dark mode background */
       & :global(.crayon-shell-container) {
         background-image: url("/charcoal-bg-dark.svg") !important;
+        background-color: #0a0a0a !important;
       }
 
-      /* FIX 3: CENTER TEXT INPUT - Keep it fixed regardless of sidebar */
+      /* FIX 3: CENTER TEXT INPUT - AGGRESSIVE FIX */
       & :global(.crayon-shell-main),
       & :global([class*="shell-main"]),
       & :global([class*="Main"]) {
-        width: 100% !important;
-        max-width: 100% !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        transform: none !important;
         transition: none !important;
+        position: relative !important;
+        left: 0 !important;
+      }
+
+      /* Override any width changes from sidebar */
+      &:global(.crayon-sidebar-open),
+      &:global([data-sidebar="open"]) {
+        & :global(.crayon-shell-main),
+        & :global([class*="Main"]) {
+          width: 100vw !important;
+          margin-left: 0 !important;
+          transform: none !important;
+        }
       }
 
       & :global(.crayon-chat-input),
@@ -44,7 +68,7 @@
       & :global([class*="input-container"]),
       & :global([class*="InputContainer"]),
       & :global(form) {
-        width: 100% !important;
+        width: calc(100% - 48px) !important;
         max-width: 900px !important;
         margin: 0 auto !important;
         position: relative !important;
