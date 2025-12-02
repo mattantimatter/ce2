@@ -48,16 +48,18 @@ export default function Home() {
   };
 
   return (
-    <div className={clsx("!h-full !w-full relative", styles["chat-theme"])}>
+    <div className={clsx("!h-full !w-full relative", styles["chat-theme"], isModalOpen && "modal-open")}>
       {/* Sidebar fade overlay when modal is open */}
       {isModalOpen && (
         <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm pointer-events-none" />
       )}
       
-      {/* Model Selector - FIXED position, ALWAYS on top */}
-      <div className="fixed top-4 left-[280px] z-[999]">
-        <ModelSelector />
-      </div>
+      {/* Model Selector - Hide when modal is open */}
+      {!isModalOpen && (
+        <div className="fixed top-4 left-[280px] z-[999]">
+          <ModelSelector />
+        </div>
+      )}
       
       {/* Top Right - Theme Toggle and Login */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
