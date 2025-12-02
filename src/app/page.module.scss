@@ -9,15 +9,20 @@
         background-repeat: no-repeat !important;
       }
 
-      @include cssUtils.dark {
-        & :global(.crayon-shell-container) {
-          background-image: url("/charcoal-bg-dark.svg") !important;
-        }
+      /* Dark mode background */
+      &:global(.crayon-theme-dark) :global(.crayon-shell-container),
+      &:global([data-crayon-theme="dark"]) :global(.crayon-shell-container) {
+        background-image: url("/charcoal-bg-dark.svg") !important;
       }
 
-      @include cssUtils.light {
-        & :global(.crayon-shell-container) {
-          background-image: url("/charcoal-bg-light.svg") !important;
-        }
+      /* Light mode background */
+      &:global(.crayon-theme-light) :global(.crayon-shell-container),
+      &:global([data-crayon-theme="light"]) :global(.crayon-shell-container) {
+        background-image: url("/charcoal-bg-light.svg") !important;
+      }
+
+      /* Default to dark mode background */
+      & :global(.crayon-shell-container) {
+        background-image: url("/charcoal-bg-dark.svg") !important;
       }
 }
