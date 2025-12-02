@@ -40,14 +40,22 @@
         transition: none !important;
       }
 
-      /* Sidebar text wrapping for long conversation titles */
+      /* Sidebar - NEVER overlap content */
       & :global(.crayon-shell-sidebar) {
+        z-index: 1 !important; // Lower than content
+        
         & :global(button),
         & :global(a) {
           white-space: normal !important;
           word-wrap: break-word !important;
           line-height: 1.4 !important;
         }
+      }
+
+      /* Main content - ALWAYS on top of sidebar */
+      & :global(.crayon-shell-main) {
+        z-index: 10 !important;
+        position: relative !important;
       }
 
       /* Light mode - ALL text should be dark */

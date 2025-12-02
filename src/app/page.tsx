@@ -11,6 +11,7 @@ import { useState } from "react";
 import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
 import { ModelSelector } from "./components/ModelSelector";
+import { ArtifactButtons } from "./components/ArtifactButtons";
 
 const ChatInternal = () => {
   const { portalThemeClassName } = useTheme();
@@ -86,11 +87,12 @@ export default function Home() {
       <ThemeProvider theme={theme} darkTheme={darkTheme} mode={currentTheme}>
         <SamplePrompts currentTheme={currentTheme} />
         <div className="relative h-full w-full">
-          {/* Model Selector - Inside main chat area */}
-          <div className="absolute top-4 left-4 z-10">
+          {/* Model Selector - ALWAYS on top, never behind sidebar */}
+          <div className="absolute top-4 left-4 z-[100]">
             <ModelSelector />
           </div>
           <ChatInternal />
+          <ArtifactButtons />
         </div>
       </ThemeProvider>
 
