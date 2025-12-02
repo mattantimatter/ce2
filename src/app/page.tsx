@@ -5,7 +5,7 @@ import "@crayonai/react-ui/styles/index.css";
 import clsx from "clsx";
 import styles from "./page.module.scss";
 import { useTheme } from "@crayonai/react-ui/ThemeProvider";
-import { theme, darkTheme, themeMode } from "@/theme";
+import { theme, darkTheme } from "@/theme";
 import { useState } from "react";
 
 import { SamplePrompts } from "./components/SamplePrompts";
