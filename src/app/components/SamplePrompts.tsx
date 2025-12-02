@@ -4,17 +4,34 @@ import React from "react";
 
 export const SamplePrompts = () => {
     const handlePromptClick = (prompt: string) => {
-        // Copy to clipboard and provide feedback
-        navigator.clipboard.writeText(prompt);
-        
-        // Try to find and focus the chat input
+        // Try to find the chat input
         const input = document.querySelector('textarea, input[type="text"]') as HTMLInputElement | HTMLTextAreaElement;
         if (input) {
+            // Set the value
             input.value = prompt;
             input.focus();
-            // Trigger input event to notify the component
-            const event = new Event('input', { bubbles: true });
-            input.dispatchEvent(event);
+            
+            // Trigger all necessary events
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            // Try to find and click the submit button
+            setTimeout(() => {
+                const submitButton = document.querySelector('button[type="submit"], button[aria-label*="send" i], button[aria-label*="submit" i]') as HTMLButtonElement;
+                if (submitButton) {
+                    submitButton.click();
+                } else {
+                    // Try to trigger Enter key press as fallback
+                    const enterEvent = new KeyboardEvent('keydown', {
+                        key: 'Enter',
+                        code: 'Enter',
+                        keyCode: 13,
+                        which: 13,
+                        bubbles: true
+                    });
+                    input.dispatchEvent(enterEvent);
+                }
+            }, 100);
         }
     };
 

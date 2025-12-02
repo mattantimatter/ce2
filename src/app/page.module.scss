@@ -25,4 +25,19 @@
       & :global(.crayon-shell-container) {
         background-image: url("/charcoal-bg-dark.svg") !important;
       }
+
+      /* Fix sidebar text formatting - prevent truncation */
+      & :global(.crayon-shell-sidebar) {
+        & :global(button),
+        & :global(a),
+        & :global([role="button"]) {
+          white-space: normal !important;
+          word-wrap: break-word !important;
+          overflow-wrap: break-word !important;
+          text-overflow: clip !important;
+          line-height: 1.4 !important;
+          padding: 8px 12px !important;
+          min-height: auto !important;
+        }
+      }
 }
