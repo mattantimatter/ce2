@@ -10,7 +10,6 @@ import { useState } from "react";
 
 import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
-import { ComponentTabs } from "./components/ComponentTabs";
 
 const ChatInternal = () => {
   const { portalThemeClassName } = useTheme();
@@ -23,15 +22,10 @@ const ChatInternal = () => {
         backdrop-filter: blur(16px);
       }
     `}</style>
-      <div className="flex flex-col h-full">
-        <ComponentTabs />
-        <div className="flex-1 overflow-hidden">
-          <C1Chat 
-            apiUrl="/api/chat" 
-            disableThemeProvider 
-          />
-        </div>
-      </div>
+      <C1Chat 
+        apiUrl="/api/chat" 
+        disableThemeProvider 
+      />
     </>
   );
 };
