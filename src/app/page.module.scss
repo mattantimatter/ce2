@@ -26,7 +26,28 @@
         background-image: url("/charcoal-bg-dark.svg") !important;
       }
 
-      /* Fix sidebar layout and styling */
+      /* FIX INPUT - Keep it fixed regardless of sidebar */
+      & :global(.crayon-shell-main),
+      & :global([class*="main"]) {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        transition: none !important;
+      }
+
+      & :global(.crayon-chat-input-container),
+      & :global([class*="input-container"]),
+      & :global(form) {
+        width: 100% !important;
+        max-width: 900px !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        left: 0 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      /* NUCLEAR OPTION - DESTROY THE GREY BOX */
       & :global(.crayon-shell-sidebar) {
         /* Fix conversation history text formatting */
         & :global(button),
@@ -41,56 +62,51 @@
           min-height: auto !important;
         }
 
-        /* Completely hide the New Chat button - multiple approaches */
-        & > div:first-child {
-          & > button:first-child,
-          & > button:first-of-type {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            height: 0 !important;
-            width: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow: hidden !important;
-            position: absolute !important;
-            left: -9999px !important;
-          }
-        }
-
-        /* Target by position and content */
-        & button:first-child:not([aria-label*="collapse" i]):not([aria-label*="toggle" i]) {
+        /* KILL THE GREY BOX - ALL POSSIBLE SELECTORS */
+        & button:first-of-type:not([aria-label*="toggle"]):not([aria-label*="collapse"]) {
           display: none !important;
         }
 
-        /* Ensure collapse button is always visible */
+        & > div > button:first-child {
+          display: none !important;
+        }
+
+        & button[class*="new" i] {
+          display: none !important;
+        }
+
+        /* Ensure collapse button is ALWAYS visible */
         & button[aria-label*="collapse" i],
         & button[aria-label*="toggle" i],
         & :global(.crayon-shell-sidebar-toggle) {
-          opacity: 1 !important;
-          pointer-events: auto !important;
           display: flex !important;
+          opacity: 1 !important;
           visibility: visible !important;
-          position: relative !important;
-          left: auto !important;
+          pointer-events: auto !important;
         }
       }
 
-      /* Remove any grey boxes, backgrounds, or containers */
-      & :global(.crayon-shell-sidebar-header) {
+      /* Remove ALL backgrounds and borders in sidebar header */
+      & :global(.crayon-shell-sidebar) > *:first-child,
+      & :global([class*="sidebar-header"]) {
         background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
         
-        & > * {
+        & * {
           background: transparent !important;
+          background-color: transparent !important;
         }
-      }
 
-      /* Additional broad targeting for New Chat button */
-      & :global([class*="new-chat"]),
-      & :global([class*="newChat"]),
-      & :global([class*="new_chat"]) {
-        display: none !important;
-        visibility: hidden !important;
+        & button:not([aria-label*="toggle"]):not([aria-label*="collapse"]) {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          height: 0 !important;
+          width: 0 !important;
+          position: absolute !important;
+          left: -99999px !important;
+          z-index: -1 !important;
+        }
       }
 }
