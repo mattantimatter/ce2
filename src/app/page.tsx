@@ -11,7 +11,6 @@ import { useState } from "react";
 import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
 import { ModelSelector } from "./components/ModelSelector";
-import { ArtifactButtons } from "./components/ArtifactButtons";
 
 const ChatInternal = () => {
   const { portalThemeClassName } = useTheme();
