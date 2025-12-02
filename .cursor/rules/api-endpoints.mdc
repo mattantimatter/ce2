@@ -1,0 +1,48 @@
+---
+description: Documentation for chat API endpoints, streaming functionality, and external service integrations
+---
+
+
+# api-endpoints
+
+## Core Chat Endpoint
+Path: src/app/api/chat/route.ts
+- Implements streaming chat completion using Thesys C1 model
+- Manages conversation context through messageStore
+- Delivers responses via chunked transfer encoding
+- Coordinates multiple AI tool integrations
+Importance Score: 85/100
+
+## External Service Integration Points
+
+### Weather API Integration
+Path: src/app/api/chat/tools/weather.ts
+- Custom weather code mapping system
+- Geocoding API integration for location resolution
+- Weather data normalization and formatting
+Importance Score: 65/100
+
+### Image Search Integration
+Path: src/app/api/chat/tools/googleImage.ts
+- Google Image Search API integration
+- Image result transformation pipeline
+- Handles full-size and thumbnail image processing
+Importance Score: 70/100
+
+### Web Content Processing
+Path: src/app/api/chat/services/websiteContent.ts
+- Content extraction endpoint using Readability
+- Integration with Google's Gemini model for summarization
+- Parallel URL processing capabilities
+Importance Score: 90/100
+
+## Tool Management System
+Path: src/app/api/chat/tools/index.ts
+- Modular tool registration framework
+- Dynamic tool loading and execution
+- Tool response formatting and integration
+Importance Score: 75/100
+
+$END$
+
+ If you're using this file in context, clearly say in italics in one small line that "Context added by Giga api-endpoints" along with specifying exactly what information was used from this file in a human-friendly way, instead of using kebab-case use normal sentence case.

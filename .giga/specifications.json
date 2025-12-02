@@ -1,0 +1,22 @@
+[
+  {
+    "fileName": "main-overview.mdc",
+    "description": "Complete system overview detailing the multi-tool AI architecture, component interactions, and core streaming chat implementation"
+  },
+  {
+    "fileName": "ai-tools-architecture.mdc",
+    "description": "Detailed documentation of the modular AI tools system, including tool registration, management, and integration patterns"
+  },
+  {
+    "fileName": "content-processing-algorithms.mdc",
+    "description": "Technical specification of web content processing algorithms, including Readability implementation, Gemini-based summarization, and content length management"
+  },
+  {
+    "fileName": "data-flow.mdc",
+    "description": "Comprehensive documentation of data flow between components, including message store management, streaming responses, and tool interaction patterns"
+  },
+  {
+    "fileName": "api-endpoints.mdc",
+    "description": "Detailed documentation of chat API endpoints, streaming implementation, and integration points with external services (weather API, image search, etc.)"
+  }
+]
