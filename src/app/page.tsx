@@ -54,6 +54,11 @@ export default function Home() {
         <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm pointer-events-none" />
       )}
       
+      {/* Model Selector - FIXED position, ALWAYS on top */}
+      <div className="fixed top-4 left-[280px] z-[999]">
+        <ModelSelector />
+      </div>
+      
       {/* Top Right - Theme Toggle and Login */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         {/* Theme Toggle Button - PROMINENT */}
