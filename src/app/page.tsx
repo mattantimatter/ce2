@@ -12,7 +12,7 @@ import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
 
 const ChatInternal = () => {
-  const { portalThemeClassName, themeMode, setThemeMode } = useTheme();
+  const { portalThemeClassName } = useTheme();
 
   return (
     <>
@@ -25,14 +25,32 @@ const ChatInternal = () => {
         background: transparent !important;
       }
     `}</style>
+      <C1Chat 
+        apiUrl="/api/chat" 
+        disableThemeProvider 
+      />
+    </>
+  );
+};
+
+export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'auto'>('auto');
+
+  const toggleTheme = () => {
+    setCurrentTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
+  return (
+    <div className={clsx("!h-full !w-full relative", styles["chat-theme"])}>
       {/* Theme Toggle Button */}
       <button
-        onClick={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')}
+        onClick={toggleTheme}
         className="fixed top-4 left-4 z-50 p-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
         aria-label="Toggle theme"
-        title={`Switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
+        title={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
       >
-        {themeMode === 'dark' ? (
+        {currentTheme === 'dark' ? (
           // Sun icon for light mode
           <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -44,19 +62,7 @@ const ChatInternal = () => {
           </svg>
         )}
       </button>
-      <C1Chat 
-        apiUrl="/api/chat" 
-        disableThemeProvider 
-      />
-    </>
-  );
-};
 
-export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  return (
-    <div className={clsx("!h-full !w-full relative", styles["chat-theme"])}>
       {/* Header with Docs and Login */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         <a 
@@ -76,7 +82,7 @@ export default function Home() {
       </div>
 
       <SamplePrompts />
-      <ThemeProvider theme={theme} darkTheme={darkTheme} mode={themeMode}>
+      <ThemeProvider theme={theme} darkTheme={darkTheme} mode={currentTheme}>
         <ChatInternal />
       </ThemeProvider>
 
