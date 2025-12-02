@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <div className={clsx("!h-full !w-full relative", styles["chat-theme"])}>
-      {/* Header with Theme Toggle, Docs and Login */}
+      {/* Header with Theme Toggle and Login */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         {/* Theme Toggle Button - PROMINENT */}
         <button
@@ -69,14 +69,6 @@ export default function Home() {
           )}
         </button>
         
-        <a 
-          href="https://docs.thesys.dev" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="px-4 py-2 text-white/80 hover:text-white text-sm font-medium transition-colors"
-        >
-          Docs
-        </a>
         <button
           onClick={() => setIsModalOpen(true)}
           className="px-6 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors font-medium text-sm shadow-lg"
