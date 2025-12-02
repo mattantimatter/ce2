@@ -3,31 +3,34 @@
 .chat-theme {
     
       & :global(.crayon-shell-container) {
-        background: transparent !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
+        /* Default to dark mode background - MUST come first */
+        background-image: url("/charcoal-bg-dark.svg") !important;
+        background-color: #0a0a0a !important;
       }
 
-      /* Dark mode background */
-      &:global(.crayon-theme-dark),
-      &:global([data-crayon-theme="dark"]) {
-        & :global(.crayon-shell-container) {
-          background-image: url("/charcoal-bg-dark.svg") !important;
-        }
-      }
-
-      /* Light mode background */
+      /* Light mode background - Override default */
       &:global(.crayon-theme-light),
       &:global([data-crayon-theme="light"]) {
         & :global(.crayon-shell-container) {
           background-image: url("/charcoal-bg-light.svg") !important;
+          background-color: #ffffff !important;
+        }
+        
+        & :global(.crayon-shell-main) {
+          background: rgba(255, 255, 255, 0.95) !important;
         }
       }
 
-      /* Default to dark mode background */
-      & :global(.crayon-shell-container) {
-        background-image: url("/charcoal-bg-dark.svg") !important;
+      /* Dark mode background - Override default */
+      &:global(.crayon-theme-dark),
+      &:global([data-crayon-theme="dark"]) {
+        & :global(.crayon-shell-container) {
+          background-image: url("/charcoal-bg-dark.svg") !important;
+          background-color: #0a0a0a !important;
+        }
       }
 
       /* Keep input centered - don't let it move with sidebar */
