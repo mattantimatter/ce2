@@ -66,28 +66,6 @@
             }
           }
         }
-
-        /* Main content - dark text on white background */
-        & :global(.crayon-shell-main) {
-          color: #171717 !important;
-
-          & * {
-            color: #171717 !important;
-          }
-
-          & h1, & h2, & h3, & h4, & h5, & h6 {
-            color: #000000 !important;
-          }
-
-          & p, & span, & div {
-            color: #171717 !important;
-          }
-        }
-
-        /* Sample prompts text */
-        & :global([class*="prompt"]) {
-          color: #171717 !important;
-        }
       }
 
       /* Dark mode sidebar styling */

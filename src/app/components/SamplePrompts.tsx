@@ -135,7 +135,7 @@ export const SamplePrompts = () => {
                     <button
                         key={index}
                         onClick={() => handlePromptClick(prompt.text)}
-                        className="flex items-center gap-3 px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-left text-white/90 hover:bg-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
+                        className="flex items-center gap-3 px-6 py-4 dark:bg-white/5 bg-gray-200/50 backdrop-blur-sm border dark:border-white/10 border-gray-300 rounded-2xl text-left dark:text-white/90 text-gray-900 dark:hover:bg-white/10 hover:bg-gray-300 dark:hover:border-white/20 hover:border-gray-400 transition-all duration-200 cursor-pointer"
                     >
                         <span className="text-2xl">{prompt.emoji}</span>
                         <span className="text-sm">{prompt.text}</span>
