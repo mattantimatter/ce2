@@ -7,7 +7,7 @@ import {
 } from "../types/search";
 
 const apiKey = process.env.GOOGLE_API_KEY;
-const cx = process.env.GOOGLE_CX_KEY;
+const cx = process.env.GOOGLE_CX;
 
 /**
  * Calls Google Custom Search API with the given query for web results.

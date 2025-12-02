@@ -10,7 +10,7 @@ let client: GoogleImages | null = null;
 const getClient = () => {
   if (!client) {
     client = new GoogleImages(
-      process.env.GOOGLE_CX_KEY!,
+      process.env.GOOGLE_CX!,
       process.env.GOOGLE_API_KEY!,
     );
   }
