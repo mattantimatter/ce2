@@ -125,7 +125,7 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
     if (!isVisible) return null;
 
     return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-8 pointer-events-none max-w-4xl w-full px-4 transition-opacity duration-300">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-8 pointer-events-none max-w-4xl w-full px-4 transition-all duration-300" style={{ marginLeft: '0px' }}>
             <div className="flex flex-col items-center gap-3">
                 <h1 className={`text-5xl font-semibold ${isLight ? 'text-gray-900' : 'text-white'}`}>
                     Chat with C1

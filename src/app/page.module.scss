@@ -25,11 +25,11 @@
         }
       }
 
-      /* Keep input centered - don't let it move with sidebar */
+      /* Keep input centered AND aligned with sample prompts */
       & :global(.crayon-shell-main) {
         width: 100% !important;
         margin-left: 0 !important;
-        transition: none !important;
+        position: relative !important;
       }
 
       & :global(.crayon-chat-input-container),
@@ -37,7 +37,7 @@
       & :global(form) {
         max-width: 900px !important;
         margin: 0 auto !important;
-        transition: none !important;
+        position: relative !important;
       }
 
       /* Sidebar - NEVER overlap content */
