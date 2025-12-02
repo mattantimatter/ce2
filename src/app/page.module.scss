@@ -9,161 +9,84 @@
         background-repeat: no-repeat !important;
       }
 
-      /* Default to dark mode background */
-      & :global(.crayon-shell-container) {
-        background-image: url("/charcoal-bg-dark.svg") !important;
-        background-color: #0a0a0a !important;
-      }
-
-      /* Dark mode styles */
+      /* Dark mode background */
       &:global(.crayon-theme-dark),
       &:global([data-crayon-theme="dark"]) {
         & :global(.crayon-shell-container) {
           background-image: url("/charcoal-bg-dark.svg") !important;
-          background-color: #0a0a0a !important;
         }
       }
 
-      /* Light mode - COMPLETE OVERHAUL */
+      /* Light mode background */
       &:global(.crayon-theme-light),
       &:global([data-crayon-theme="light"]) {
-        /* Background */
         & :global(.crayon-shell-container) {
           background-image: url("/charcoal-bg-light.svg") !important;
-          background-color: #ffffff !important;
-        }
-        
-        /* Main content area */
-        & :global(.crayon-shell-main),
-        & :global([class*="Main"]) {
-          background-color: rgba(255, 255, 255, 0.8) !important;
-        }
-
-        /* Chat messages */
-        & :global([class*="message"]),
-        & :global([class*="Message"]) {
-          color: #171717 !important;
-          
-          &:global([class*="assistant"]),
-          &:global([class*="Assistant"]) {
-            background-color: rgba(240, 240, 240, 0.6) !important;
-          }
-
-          &:global([class*="user"]),
-          &:global([class*="User"]) {
-            background-color: rgba(200, 200, 200, 0.3) !important;
-          }
-        }
-
-        /* Input area */
-        & :global(.crayon-chat-input),
-        & :global(textarea),
-        & :global(input) {
-          background-color: rgba(255, 255, 255, 0.9) !important;
-          color: #171717 !important;
-          border-color: rgba(0, 0, 0, 0.1) !important;
-        }
-
-        /* Text colors */
-        & :global(.crayon-shell-main) * {
-          color: #171717 !important;
         }
       }
 
-      /* FIX 3: CENTER TEXT INPUT - AGGRESSIVE FIX */
-      & :global(.crayon-shell-main),
-      & :global([class*="shell-main"]),
-      & :global([class*="Main"]) {
-        width: 100vw !important;
-        max-width: 100vw !important;
+      /* Default to dark mode background */
+      & :global(.crayon-shell-container) {
+        background-image: url("/charcoal-bg-dark.svg") !important;
+      }
+
+      /* Keep input centered - don't let it move with sidebar */
+      & :global(.crayon-shell-main) {
+        width: 100% !important;
         margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        transform: none !important;
         transition: none !important;
-        position: relative !important;
-        left: 0 !important;
       }
 
-      /* Override any width changes from sidebar */
-      &:global(.crayon-sidebar-open),
-      &:global([data-sidebar="open"]) {
-        & :global(.crayon-shell-main),
-        & :global([class*="Main"]) {
-          width: 100vw !important;
-          margin-left: 0 !important;
-          transform: none !important;
-        }
-      }
-
-      & :global(.crayon-chat-input),
       & :global(.crayon-chat-input-container),
       & :global([class*="input-container"]),
-      & :global([class*="InputContainer"]),
       & :global(form) {
-        width: calc(100% - 48px) !important;
         max-width: 900px !important;
         margin: 0 auto !important;
-        position: relative !important;
-        left: 0 !important;
-        right: 0 !important;
-        transform: none !important;
         transition: none !important;
       }
 
-      /* FIX 2: HIDE ENTIRE SIDEBAR HEADER (Logo + Grey Box) */
+      /* Sidebar text wrapping for long conversation titles */
       & :global(.crayon-shell-sidebar) {
-        
-        /* Hide the ENTIRE header section */
-        & > div:first-child,
-        & > *:first-child:not(button) {
-          display: none !important;
-          visibility: hidden !important;
-          height: 0 !important;
-          overflow: hidden !important;
-        }
-
-        /* Fix conversation history text formatting */
         & :global(button),
-        & :global(a),
-        & :global([role="button"]) {
+        & :global(a) {
           white-space: normal !important;
           word-wrap: break-word !important;
-          overflow-wrap: break-word !important;
-          text-overflow: clip !important;
           line-height: 1.4 !important;
-          padding: 8px 12px !important;
-          min-height: auto !important;
         }
       }
 
-      /* FIX 1: RESTORE COLLAPSE BUTTON - Make it SUPER visible */
-      & :global(button[aria-label*="toggle" i]),
-      & :global(button[aria-label*="collapse" i]),
-      & :global(button[aria-label*="Toggle" i]),
-      & :global(button[aria-label*="Collapse" i]),
-      & :global(.crayon-shell-sidebar-toggle),
-      & :global([class*="sidebar-toggle"]),
-      & :global([class*="SidebarToggle"]) {
-        display: flex !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-        position: relative !important;
-        z-index: 9999 !important;
-        background-color: rgba(255, 255, 255, 0.1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-radius: 8px !important;
-        padding: 8px !important;
-        margin: 8px !important;
+      /* Light mode sidebar styling */
+      &:global(.crayon-theme-light) {
+        & :global(.crayon-shell-sidebar) {
+          background-color: #f8f8f8 !important;
+          border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+
+          & :global(button),
+          & :global(a) {
+            color: #171717 !important;
+            
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.05) !important;
+            }
+          }
+        }
       }
 
-      /* Remove any hiding rules that might affect collapse button */
-      & :global(.crayon-shell-sidebar) {
-        & > button:first-of-type {
-          display: flex !important;
-          visibility: visible !important;
+      /* Dark mode sidebar styling */
+      &:global(.crayon-theme-dark) {
+        & :global(.crayon-shell-sidebar) {
+          background-color: #1a1a1a !important;
+          border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+          & :global(button),
+          & :global(a) {
+            color: #ededed !important;
+            
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.05) !important;
+            }
+          }
         }
       }
 }
+

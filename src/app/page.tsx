@@ -24,20 +24,6 @@ const ChatInternal = () => {
         backdrop-filter: blur(16px);
         background: transparent !important;
       }
-      
-      /* Force light mode backgrounds when in light theme */
-      .crayon-theme-light .crayon-shell-container {
-        background-color: #ffffff !important;
-      }
-      
-      .crayon-theme-light .crayon-shell-main {
-        background-color: rgba(255, 255, 255, 0.9) !important;
-      }
-      
-      /* Light mode text colors */
-      .crayon-theme-light * {
-        color: #171717 !important;
-      }
     `}</style>
       <C1Chat 
         apiUrl="/api/chat" 
