@@ -4,26 +4,10 @@ import { transformStream } from "@crayonai/stream";
 import { DBMessage, getMessageStore } from "./messageStore";
 import { tools } from "./tools";
 import { SYSTEM_PROMPTS } from "./systemPrompts";
-import { MCPClient } from "./mcp";
-import { JSONSchema } from "openai/lib/jsonschema.mjs";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-// Initialize MCP client for Thesys docs access
-const mcpClient = new MCPClient();
-
-async function ensureMCPConnection(): Promise<void> {
-  if (mcpClient.tools.length === 0) {
-    try {
-      await mcpClient.connect();
-    } catch (error) {
-      console.error("MCP connection failed:", error);
-      // Continue without MCP if connection fails
-    }
-  }
-}
 
 export async function POST(req: NextRequest) {
   const { prompt, threadId, responseId } = (await req.json()) as {
@@ -39,31 +23,6 @@ export async function POST(req: NextRequest) {
 
   messageStore.addMessage(prompt);
 
-  // Try to connect to MCP (for Thesys docs access)
-  await ensureMCPConnection();
-
-  // Convert MCP tools to runnable format if available
-  const mcpRunnableTools = mcpClient.tools.map((tool) => ({
-    type: "function" as const,
-    function: {
-      name: tool.function.name,
-      description: tool.function.description || "Fetch web content including Thesys documentation",
-      parameters: tool.function.parameters as unknown as JSONSchema,
-      parse: JSON.parse,
-      function: async (args: unknown) => {
-        const results = await mcpClient.runTool({
-          tool_call_id: tool.function.name + Date.now().toString(),
-          name: tool.function.name,
-          args: args as Record<string, unknown>,
-        });
-        return results.content;
-      },
-    },
-  }));
-
-  // Combine existing tools with MCP tools
-  const allTools = [...tools, ...mcpRunnableTools];
-
   const llmStream = await client.beta.chat.completions.runTools({
     model: `c1/openai/gpt-5/v-20250930`,
     temperature: 1 as unknown as number,
@@ -72,8 +31,8 @@ export async function POST(req: NextRequest) {
       ...messageStore.getOpenAICompatibleMessageList(),
     ],
     stream: true,
-    tool_choice: allTools.length > 0 ? "auto" : "none",
-    tools: allTools,
+    tool_choice: tools.length > 0 ? "auto" : "none",
+    tools: tools,
   });
 
   const responseStream = transformStream(

@@ -50,10 +50,18 @@ export const googleImageTool: RunnableToolFunctionWithParse<{
     ) as JSONSchema,
     function: async ({ altText }: { altText: string[] }) => {
       try {
+        console.log("[Google Image Search] Starting search for:", altText);
+        console.log("[Google Image Search] API Keys present:", {
+          hasGoogleCX: !!process.env.GOOGLE_CX,
+          hasGoogleAPIKey: !!process.env.GOOGLE_API_KEY,
+          googleCX: process.env.GOOGLE_CX ? `${process.env.GOOGLE_CX.substring(0, 5)}...` : 'missing',
+        });
+        
         const imageClient = getClient();
         
         // Return helpful message if API keys are missing
         if (!imageClient) {
+          console.error("[Google Image Search] Client initialization failed");
           return {
             error: "Image search unavailable. Please configure GOOGLE_CX and GOOGLE_API_KEY in your Vercel environment variables.",
             altText: altText,
@@ -63,11 +71,14 @@ export const googleImageTool: RunnableToolFunctionWithParse<{
         const results = await Promise.all(
           altText.map(async (text) => {
             try {
+              console.log(`[Google Image Search] Searching for: "${text}"`);
               const searchResults = await imageClient.search(text, {
                 size: "medium",
               });
+              console.log(`[Google Image Search] Results for "${text}":`, searchResults?.length || 0);
 
               if (!searchResults || searchResults.length === 0) {
+                console.warn(`[Google Image Search] No results for: "${text}"`);
                 return { altText: text, imageUrl: null, thumbnailUrl: null };
               }
 
@@ -75,19 +86,16 @@ export const googleImageTool: RunnableToolFunctionWithParse<{
               const imageUrl = item?.url;
               const thumbnailUrl = item?.thumbnail?.url || null;
 
+              console.log(`[Google Image Search] Success for "${text}":`, { imageUrl, thumbnailUrl });
               return { altText: text, imageUrl, thumbnailUrl };
             } catch (searchError) {
+              console.error(`[Google Image Search] Error for "${text}":`, searchError);
+              const errorMessage = searchError instanceof Error ? searchError.message : String(searchError);
               return {
                 altText: text,
                 imageUrl: null,
                 thumbnailUrl: null,
-                error: createToolErrorMessage(searchError, {
-                  action: "searching for images",
-                  userFriendlyContext: `for "${text}"`,
-                  technicalDetails: true,
-                  suggestion:
-                    "Please try different search terms or try again later.",
-                }),
+                error: `Image search failed for "${text}": ${errorMessage}. Please check GOOGLE_CX (${process.env.GOOGLE_CX ? 'set' : 'MISSING'}) and GOOGLE_API_KEY (${process.env.GOOGLE_API_KEY ? 'set' : 'MISSING'}) in Vercel environment variables.`,
               };
             }
           }),
