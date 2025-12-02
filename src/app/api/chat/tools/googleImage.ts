@@ -8,10 +8,18 @@ import { createToolErrorMessage } from "./utils/toolErrorHandler";
 // Lazy initialization to avoid instantiating during build time
 let client: GoogleImages | null = null;
 const getClient = () => {
+  // Check for API keys
+  if (!process.env.GOOGLE_CX || !process.env.GOOGLE_API_KEY) {
+    throw new Error(
+      "Google API credentials missing. Please set GOOGLE_CX and GOOGLE_API_KEY environment variables in Vercel. " +
+      "Get your Custom Search Engine ID from: https://programmablesearchengine.google.com/controlpanel/all"
+    );
+  }
+  
   if (!client) {
     client = new GoogleImages(
-      process.env.GOOGLE_CX!,
-      process.env.GOOGLE_API_KEY!,
+      process.env.GOOGLE_CX,
+      process.env.GOOGLE_API_KEY,
     );
   }
   return client;
@@ -43,6 +51,15 @@ export const googleImageTool: RunnableToolFunctionWithParse<{
     function: async ({ altText }: { altText: string[] }) => {
       try {
         const imageClient = getClient();
+        
+        // Return helpful message if API keys are missing
+        if (!imageClient) {
+          return {
+            error: "Image search unavailable. Please configure GOOGLE_CX and GOOGLE_API_KEY in your Vercel environment variables.",
+            altText: altText,
+          };
+        }
+        
         const results = await Promise.all(
           altText.map(async (text) => {
             try {

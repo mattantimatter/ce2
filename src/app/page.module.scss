@@ -50,8 +50,9 @@
         }
       }
 
-      /* Light mode sidebar styling */
+      /* Light mode - ALL text should be dark */
       &:global(.crayon-theme-light) {
+        /* Sidebar styling */
         & :global(.crayon-shell-sidebar) {
           background-color: #f8f8f8 !important;
           border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
@@ -64,6 +65,28 @@
               background-color: rgba(0, 0, 0, 0.05) !important;
             }
           }
+        }
+
+        /* Main content - dark text on white background */
+        & :global(.crayon-shell-main) {
+          color: #171717 !important;
+
+          & * {
+            color: #171717 !important;
+          }
+
+          & h1, & h2, & h3, & h4, & h5, & h6 {
+            color: #000000 !important;
+          }
+
+          & p, & span, & div {
+            color: #171717 !important;
+          }
+        }
+
+        /* Sample prompts text */
+        & :global([class*="prompt"]) {
+          color: #171717 !important;
         }
       }
 
