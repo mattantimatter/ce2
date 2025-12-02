@@ -10,6 +10,8 @@ import { useState } from "react";
 
 import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
+import { ModelSelector } from "./components/ModelSelector";
+import { ArtifactButtons } from "./components/ArtifactButtons";
 
 const ChatInternal = () => {
   const { portalThemeClassName } = useTheme();
@@ -52,7 +54,12 @@ export default function Home() {
         <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm pointer-events-none" />
       )}
       
-      {/* Header with Theme Toggle and Login */}
+      {/* Top Left - Model Selector */}
+      <div className="absolute top-4 left-4 z-50">
+        <ModelSelector />
+      </div>
+      
+      {/* Top Right - Theme Toggle and Login */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         {/* Theme Toggle Button - PROMINENT */}
         <button
@@ -85,6 +92,11 @@ export default function Home() {
       <ThemeProvider theme={theme} darkTheme={darkTheme} mode={currentTheme}>
         <SamplePrompts currentTheme={currentTheme} />
         <ChatInternal />
+        
+        {/* Bottom Left - Artifact Quick Actions */}
+        <div className="absolute bottom-24 left-4 z-50">
+          <ArtifactButtons />
+        </div>
       </ThemeProvider>
 
       <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
