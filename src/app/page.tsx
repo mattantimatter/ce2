@@ -35,7 +35,7 @@ const ChatInternal = () => {
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'auto'>('auto');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
 
   const toggleTheme = () => {
     setCurrentTheme(prev => prev === 'dark' ? 'light' : 'dark');
