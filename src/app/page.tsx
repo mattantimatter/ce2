@@ -91,14 +91,8 @@ export default function Home() {
 
       <ThemeProvider theme={theme} darkTheme={darkTheme} mode={currentTheme}>
         <SamplePrompts currentTheme={currentTheme} />
-        <div className="relative h-full w-full">
-          {/* Model Selector - ALWAYS on top, never behind sidebar */}
-          <div className="absolute top-4 left-4 z-[100]">
-            <ModelSelector />
-          </div>
-          <ChatInternal />
-          <ArtifactButtons />
-        </div>
+        <ChatInternal />
+        <ArtifactButtons />
       </ThemeProvider>
 
       <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
