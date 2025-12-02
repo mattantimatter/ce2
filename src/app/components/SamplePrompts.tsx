@@ -1,9 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export const SamplePrompts = () => {
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        // Hide prompts when any message appears
+        const checkForMessages = () => {
+            const messagesExist = document.querySelector('[data-message], [role="log"], .crayon-message, [class*="message"]');
+            if (messagesExist) {
+                setIsVisible(false);
+            }
+        };
+
+        // Check immediately
+        checkForMessages();
+
+        // Set up observer to watch for new messages
+        const observer = new MutationObserver(checkForMessages);
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
     const handlePromptClick = (prompt: string) => {
+        // Hide prompts immediately when clicked
+        setIsVisible(false);
         // Find the chat input
         const input = document.querySelector('textarea, input[type="text"]') as HTMLInputElement | HTMLTextAreaElement;
         if (input) {
@@ -74,8 +100,11 @@ export const SamplePrompts = () => {
         { text: "Generate a report on electric vehicles", emoji: "📄" },
     ];
 
+    // Don't render if not visible
+    if (!isVisible) return null;
+
     return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-8 pointer-events-none max-w-4xl w-full px-4">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-8 pointer-events-none max-w-4xl w-full px-4 transition-opacity duration-300">
             <div className="flex flex-col items-center gap-3">
                 <h1 className="text-5xl font-semibold text-white">
                     Chat with C1
