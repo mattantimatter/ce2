@@ -8,13 +8,20 @@ import { weatherTool } from "./tools/weather";
  * Each tool is a function that the AI can use to perform specific tasks.
  *
  * Current tools:
- * - googleImageTool: Fetches image URLs based on text descriptions
+ * - weatherTool: Gets weather information
+ * - googleImageTool: DISABLED due to Google API 403 errors (requires billing)
  *
- * ADD MORE TOOLS HERE TO EXTEND THE AI'S CAPABILITIES
+ * To enable Google Image Search:
+ * 1. Enable Custom Search API in Google Cloud Console
+ * 2. Enable billing on your Google Cloud project
+ * 3. Uncomment googleImageTool below
  */
 
 export const tools: (
   | RunnableToolFunctionWithoutParse
   | RunnableToolFunctionWithParse<{ altText: string[] }>
   | RunnableToolFunctionWithParse<{ location: string }>
-)[] = [googleImageTool, weatherTool];
+)[] = [
+  weatherTool,
+  // googleImageTool, // Disabled: Google API returns 403 (billing required)
+];
