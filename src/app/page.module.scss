@@ -40,4 +40,18 @@
           min-height: auto !important;
         }
       }
+
+      /* Hide the New Chat button that overlaps with logo */
+      & :global(.crayon-shell-sidebar-header) {
+        & :global(button) {
+          display: none !important;
+        }
+      }
+
+      /* Alternative: If above doesn't work, target by text content */
+      & :global(.crayon-shell-sidebar) {
+        & :global(button):first-child {
+          display: none !important;
+        }
+      }
 }

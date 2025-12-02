@@ -4,34 +4,61 @@ import React from "react";
 
 export const SamplePrompts = () => {
     const handlePromptClick = (prompt: string) => {
-        // Try to find the chat input
+        // Find the chat input
         const input = document.querySelector('textarea, input[type="text"]') as HTMLInputElement | HTMLTextAreaElement;
         if (input) {
-            // Set the value
-            input.value = prompt;
+            // Use React's native setter to properly update the value
+            const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+                window.HTMLTextAreaElement.prototype,
+                'value'
+            )?.set || Object.getOwnPropertyDescriptor(
+                window.HTMLInputElement.prototype,
+                'value'
+            )?.set;
+            
+            if (nativeInputValueSetter) {
+                nativeInputValueSetter.call(input, prompt);
+            } else {
+                input.value = prompt;
+            }
+            
             input.focus();
             
-            // Trigger all necessary events
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-            input.dispatchEvent(new Event('change', { bubbles: true }));
+            // Trigger React's onChange
+            const inputEvent = new Event('input', { bubbles: true });
+            input.dispatchEvent(inputEvent);
             
-            // Try to find and click the submit button
+            // Wait a bit then trigger submission
             setTimeout(() => {
-                const submitButton = document.querySelector('button[type="submit"], button[aria-label*="send" i], button[aria-label*="submit" i]') as HTMLButtonElement;
-                if (submitButton) {
+                // Try multiple selectors for the submit button
+                const submitButton = document.querySelector(
+                    'button[type="submit"], ' +
+                    'button[aria-label*="send"], ' +
+                    'button[aria-label*="Send"], ' +
+                    'form button:last-of-type, ' +
+                    'button svg[class*="send"], ' +
+                    'button[class*="send"]'
+                ) as HTMLButtonElement;
+                
+                if (submitButton && !submitButton.disabled) {
                     submitButton.click();
                 } else {
-                    // Try to trigger Enter key press as fallback
+                    // Fallback: trigger Enter key
                     const enterEvent = new KeyboardEvent('keydown', {
                         key: 'Enter',
                         code: 'Enter',
                         keyCode: 13,
                         which: 13,
-                        bubbles: true
+                        bubbles: true,
+                        cancelable: true
                     });
                     input.dispatchEvent(enterEvent);
+                    
+                    // Also try keypress and keyup
+                    input.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter', keyCode: 13, bubbles: true }));
+                    input.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', keyCode: 13, bubbles: true }));
                 }
-            }, 100);
+            }, 150);
         }
     };
 
