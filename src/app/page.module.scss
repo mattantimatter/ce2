@@ -41,16 +41,27 @@
           min-height: auto !important;
         }
 
-        /* Hide the New Chat button but keep the header */
+        /* Completely hide the New Chat button - multiple approaches */
         & > div:first-child {
-          & > button:first-child {
+          & > button:first-child,
+          & > button:first-of-type {
+            display: none !important;
             opacity: 0 !important;
+            visibility: hidden !important;
             pointer-events: none !important;
             height: 0 !important;
+            width: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
             overflow: hidden !important;
+            position: absolute !important;
+            left: -9999px !important;
           }
+        }
+
+        /* Target by position and content */
+        & button:first-child:not([aria-label*="collapse" i]):not([aria-label*="toggle" i]) {
+          display: none !important;
         }
 
         /* Ensure collapse button is always visible */
@@ -61,13 +72,25 @@
           pointer-events: auto !important;
           display: flex !important;
           visibility: visible !important;
+          position: relative !important;
+          left: auto !important;
         }
       }
 
-      /* Additional targeting for New Chat button */
+      /* Remove any grey boxes, backgrounds, or containers */
+      & :global(.crayon-shell-sidebar-header) {
+        background: transparent !important;
+        
+        & > * {
+          background: transparent !important;
+        }
+      }
+
+      /* Additional broad targeting for New Chat button */
       & :global([class*="new-chat"]),
       & :global([class*="newChat"]),
-      & :global(button):has-text("New Chat") {
+      & :global([class*="new_chat"]) {
         display: none !important;
+        visibility: hidden !important;
       }
 }
