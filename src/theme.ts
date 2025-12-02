@@ -356,4 +356,4 @@ export const darkTheme = {
   "shadowL": "0px 1px 8px rgba(0, 0, 0, 0.08)",
   "shadowXl": "0px 10px 15px rgba(0, 0, 0, 0.1)"
 };
-export const themeMode = `dark` as ThemeMode;
+export const themeMode = `auto` as ThemeMode;

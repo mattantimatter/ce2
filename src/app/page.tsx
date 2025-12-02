@@ -25,7 +25,12 @@ const ChatInternal = () => {
         background: transparent !important;
       }
     `}</style>
-      <C1Chat apiUrl="/api/chat" disableThemeProvider />
+      <C1Chat 
+        apiUrl="/api/chat" 
+        disableThemeProvider 
+        showChatHistory={true}
+        sidebarCollapsible={true}
+      />
     </>
   );
 };

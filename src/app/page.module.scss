@@ -4,13 +4,20 @@
     
       & :global(.crayon-shell-container) {
         background: transparent !important;
-        background-image: url("/charcoal-bg-dark.svg") !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
       }
 
-      & :global([class*="crayon-shell-sidebar"]) {
-        display: none !important;
+      @include cssUtils.dark {
+        & :global(.crayon-shell-container) {
+          background-image: url("/charcoal-bg-dark.svg") !important;
+        }
+      }
+
+      @include cssUtils.light {
+        & :global(.crayon-shell-container) {
+          background-image: url("/charcoal-bg-light.svg") !important;
+        }
       }
 }
