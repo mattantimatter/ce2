@@ -26,8 +26,9 @@
         background-image: url("/charcoal-bg-dark.svg") !important;
       }
 
-      /* Fix sidebar text formatting - prevent truncation */
+      /* Fix sidebar layout and styling */
       & :global(.crayon-shell-sidebar) {
+        /* Fix conversation history text formatting */
         & :global(button),
         & :global(a),
         & :global([role="button"]) {
@@ -39,19 +40,34 @@
           padding: 8px 12px !important;
           min-height: auto !important;
         }
-      }
 
-      /* Hide the New Chat button that overlaps with logo */
-      & :global(.crayon-shell-sidebar-header) {
-        & :global(button) {
-          display: none !important;
+        /* Hide the New Chat button but keep the header */
+        & > div:first-child {
+          & > button:first-child {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+          }
+        }
+
+        /* Ensure collapse button is always visible */
+        & button[aria-label*="collapse" i],
+        & button[aria-label*="toggle" i],
+        & :global(.crayon-shell-sidebar-toggle) {
+          opacity: 1 !important;
+          pointer-events: auto !important;
+          display: flex !important;
+          visibility: visible !important;
         }
       }
 
-      /* Alternative: If above doesn't work, target by text content */
-      & :global(.crayon-shell-sidebar) {
-        & :global(button):first-child {
-          display: none !important;
-        }
+      /* Additional targeting for New Chat button */
+      & :global([class*="new-chat"]),
+      & :global([class*="newChat"]),
+      & :global(button):has-text("New Chat") {
+        display: none !important;
       }
 }
