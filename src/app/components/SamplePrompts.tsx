@@ -6,25 +6,41 @@ export const SamplePrompts = () => {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        // Hide prompts when any message appears
+        // Hide prompts when conversation messages appear
         const checkForMessages = () => {
-            const messagesExist = document.querySelector('[data-message], [role="log"], .crayon-message, [class*="message"]');
-            if (messagesExist) {
+            // Look for actual conversation messages, not just any elements
+            const messagesExist = document.querySelector(
+                '[role="log"] [data-message], ' +
+                '[class*="message-list"] [class*="message"], ' +
+                '[class*="conversation"] [class*="message"], ' +
+                '.crayon-message:not(:empty)'
+            );
+            
+            // Only hide if we find real messages with content
+            if (messagesExist && messagesExist.textContent && messagesExist.textContent.trim().length > 0) {
                 setIsVisible(false);
             }
         };
 
-        // Check immediately
-        checkForMessages();
+        // Don't check immediately - wait for actual content
+        const timeoutId = setTimeout(checkForMessages, 500);
 
         // Set up observer to watch for new messages
-        const observer = new MutationObserver(checkForMessages);
+        const observer = new MutationObserver(() => {
+            // Debounce the check
+            clearTimeout(timeoutId);
+            setTimeout(checkForMessages, 300);
+        });
+        
         observer.observe(document.body, {
             childList: true,
             subtree: true
         });
 
-        return () => observer.disconnect();
+        return () => {
+            clearTimeout(timeoutId);
+            observer.disconnect();
+        };
     }, []);
 
     const handlePromptClick = (prompt: string) => {
