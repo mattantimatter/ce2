@@ -8,19 +8,26 @@ import { createToolErrorMessage } from "./utils/toolErrorHandler";
 // Lazy initialization to avoid instantiating during build time
 let client: GoogleImages | null = null;
 const getClient = () => {
+  const googleCX = process.env.GOOGLE_CX;
+  const googleAPIKey = process.env.GOOGLE_API_KEY;
+  
+  console.log("[Google Image Client] Environment check:", {
+    hasCX: !!googleCX,
+    hasAPIKey: !!googleAPIKey,
+    cxLength: googleCX?.length,
+    apiKeyLength: googleAPIKey?.length
+  });
+  
   // Check for API keys
-  if (!process.env.GOOGLE_CX || !process.env.GOOGLE_API_KEY) {
-    throw new Error(
-      "Google API credentials missing. Please set GOOGLE_CX and GOOGLE_API_KEY environment variables in Vercel. " +
-      "Get your Custom Search Engine ID from: https://programmablesearchengine.google.com/controlpanel/all"
-    );
+  if (!googleCX || !googleAPIKey) {
+    const errorMsg = `Google API credentials missing! CX: ${!!googleCX}, API Key: ${!!googleAPIKey}. Set in Vercel environment variables.`;
+    console.error("[Google Image Client]", errorMsg);
+    throw new Error(errorMsg);
   }
   
   if (!client) {
-    client = new GoogleImages(
-      process.env.GOOGLE_CX,
-      process.env.GOOGLE_API_KEY,
-    );
+    console.log("[Google Image Client] Initializing with CX:", googleCX);
+    client = new GoogleImages(googleCX, googleAPIKey);
   }
   return client;
 };
