@@ -223,11 +223,13 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
 
     return (
         <div 
-            className="fixed top-1/2 z-10 flex flex-col items-center gap-6 pointer-events-none w-full px-4 transition-all duration-300"
+            className="fixed top-1/2 left-0 right-0 z-10 flex flex-col items-center gap-6 pointer-events-none px-4 transition-all duration-300"
             style={{ 
-                left: 'calc(50% + 140px)', // Offset by half of sidebar width (280px / 2)
-                transform: 'translate(-50%, -50%)',
-                maxWidth: 'calc(100vw - 320px)' // Account for sidebar + padding
+                paddingLeft: 'max(1rem, calc((100vw - 280px) * 0.05))', // Account for sidebar
+                paddingRight: 'max(1rem, calc(100vw * 0.05))',
+                marginLeft: '280px', // Sidebar width
+                transform: 'translateY(-50%)',
+                maxWidth: 'calc(100vw - 280px)' // Full width minus sidebar
             }}
         >
             {/* Header */}
@@ -250,7 +252,8 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
                         color={activeCategory === key ? "primary" : "default"}
                         startContent={category.icon}
                         onPress={() => setActiveCategory(key)}
-                        className={`transition-all ${
+                        disableAnimation
+                        className={`transition-colors duration-150 ${
                             activeCategory === key 
                                 ? '' 
                                 : isLight 
@@ -269,15 +272,17 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
                     <Card 
                         key={index}
                         isPressable
+                        disableAnimation
+                        disableRipple
                         onPress={() => handlePromptClick(prompt.text)}
-                        className={`transition-all duration-200 ${
+                        className={`cursor-pointer transition-all duration-150 ${
                             isLight 
-                                ? 'bg-white/80 border border-gray-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-md' 
-                                : 'bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20'
+                                ? 'bg-white/90 border border-gray-200 hover:bg-white hover:border-gray-300 hover:shadow-sm' 
+                                : 'bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:border-white/20'
                         }`}
                     >
                         <CardBody className="flex flex-row items-start gap-3 p-4">
-                            <div className={`p-2 rounded-lg ${isLight ? 'bg-gray-100 text-gray-600' : 'bg-white/10 text-white/70'}`}>
+                            <div className={`p-2 rounded-lg flex-shrink-0 ${isLight ? 'bg-gray-100 text-gray-600' : 'bg-white/10 text-white/70'}`}>
                                 {prompt.icon}
                             </div>
                             <p className={`text-sm leading-relaxed ${isLight ? 'text-gray-700' : 'text-white/90'}`}>
@@ -302,7 +307,8 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
                         variant="flat"
                         startContent={<SlidesIcon />}
                         onPress={() => handlePromptClick("Generate a slide presentation on coffee culture around the world")}
-                        className={`justify-start h-auto py-3 px-4 ${
+                        disableAnimation
+                        className={`justify-start h-auto py-3 px-4 transition-colors duration-150 ${
                             isLight 
                                 ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
                                 : 'bg-white/5 text-white/80 hover:bg-white/10'
@@ -314,7 +320,8 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
                         variant="flat"
                         startContent={<DocumentIcon />}
                         onPress={() => handlePromptClick("Generate a comprehensive report on electric vehicles and their impact")}
-                        className={`justify-start h-auto py-3 px-4 ${
+                        disableAnimation
+                        className={`justify-start h-auto py-3 px-4 transition-colors duration-150 ${
                             isLight 
                                 ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
                                 : 'bg-white/5 text-white/80 hover:bg-white/10'

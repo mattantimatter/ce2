@@ -83,7 +83,8 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
                                 <Button 
                                     fullWidth 
                                     startContent={<GoogleIcon />}
-                                    className="bg-black text-white hover:bg-gray-800 h-12"
+                                    disableAnimation
+                                    className="bg-black text-white hover:bg-gray-800 h-12 transition-colors duration-150"
                                 >
                                     Continue with Google
                                 </Button>
@@ -91,7 +92,8 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
                                 <Button 
                                     fullWidth 
                                     startContent={<GithubIcon />}
-                                    className="bg-black text-white hover:bg-gray-800 h-12"
+                                    disableAnimation
+                                    className="bg-black text-white hover:bg-gray-800 h-12 transition-colors duration-150"
                                 >
                                     Continue with Github
                                 </Button>
@@ -100,7 +102,8 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
                                     fullWidth 
                                     variant="bordered"
                                     startContent={<MailIcon />}
-                                    className="border-gray-300 text-gray-900 hover:bg-gray-50 h-12"
+                                    disableAnimation
+                                    className="border-gray-300 text-gray-900 hover:bg-gray-50 h-12 transition-colors duration-150"
                                 >
                                     Continue with Mail
                                 </Button>

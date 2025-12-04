@@ -5,6 +5,27 @@ import GoogleImages from "google-images";
 import type { JSONSchema } from "openai/lib/jsonschema.mjs";
 import { createToolErrorMessage } from "./utils/toolErrorHandler";
 
+/**
+ * Google Image Search Setup Requirements:
+ * 
+ * 1. Create API Key in Google Cloud Console (NOT AI Studio):
+ *    - Go to https://console.cloud.google.com/apis/credentials
+ *    - Create/Select a project
+ *    - Click "Create Credentials" > "API Key"
+ *    - Copy the key to GOOGLE_API_KEY environment variable
+ * 
+ * 2. Enable Custom Search API:
+ *    - Go to https://console.cloud.google.com/apis/library/customsearch.googleapis.com
+ *    - Click "Enable"
+ * 
+ * 3. Create Programmable Search Engine:
+ *    - Go to https://programmablesearchengine.google.com/
+ *    - Click "Add" to create new search engine
+ *    - In "Sites to search", select "Search the entire web"
+ *    - Enable "Image search" in Settings
+ *    - Copy the Search Engine ID to GOOGLE_CX environment variable
+ */
+
 // Lazy initialization to avoid instantiating during build time
 let client: GoogleImages | null = null;
 

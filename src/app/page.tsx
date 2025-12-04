@@ -11,7 +11,6 @@ import { Button } from "@heroui/react";
 
 import { SamplePrompts } from "./components/SamplePrompts";
 import { SignupModal } from "./components/SignupModal";
-import { ModelSelector } from "./components/ModelSelector";
 
 const ChatInternal = () => {
   const { portalThemeClassName } = useTheme();
@@ -54,13 +53,6 @@ export default function Home() {
         <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm pointer-events-none" />
       )}
       
-      {/* Model Selector - Hide when modal is open */}
-      {!isModalOpen && (
-        <div className="fixed top-4 left-[280px] z-[999]">
-          <ModelSelector />
-        </div>
-      )}
-      
       {/* Top Right - Theme Toggle and Login */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         {/* Theme Toggle Button */}
@@ -68,9 +60,10 @@ export default function Home() {
           isIconOnly
           variant="flat"
           onPress={toggleTheme}
+          disableAnimation
           aria-label="Toggle theme"
           title={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
-          className={`${
+          className={`transition-colors duration-150 ${
             currentTheme === 'dark' 
               ? 'bg-white/10 text-yellow-300 hover:bg-white/20' 
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -91,7 +84,8 @@ export default function Home() {
           color="default"
           variant="solid"
           onPress={() => setIsModalOpen(true)}
-          className="bg-white text-gray-900 font-medium"
+          disableAnimation
+          className="bg-white text-gray-900 font-medium transition-colors duration-150"
         >
           Login
         </Button>
