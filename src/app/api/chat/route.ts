@@ -11,18 +11,23 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
-  const { prompt, threadId, responseId } = (await req.json()) as {
-    prompt: DBMessage;
-    threadId: string;
-    responseId: string;
-  };
-  const client = new OpenAI({
-    baseURL: "https://api.thesys.dev/v1/embed/",
-    apiKey: process.env.THESYS_API_KEY,
-  });
-  const messageStore = getMessageStore(threadId);
+  try {
+    const { prompt, threadId, responseId } = (await req.json()) as {
+      prompt: DBMessage;
+      threadId: string;
+      responseId: string;
+    };
+    
+    const promptPreview = typeof prompt.content === 'string' ? prompt.content.substring(0, 100) : JSON.stringify(prompt.content).substring(0, 100);
+    console.log("[Chat API] Received request:", { threadId, responseId, prompt: promptPreview });
+    
+    const client = new OpenAI({
+      baseURL: "https://api.thesys.dev/v1/embed/",
+      apiKey: process.env.THESYS_API_KEY,
+    });
+    const messageStore = getMessageStore(threadId);
 
-  messageStore.addMessage(prompt);
+    messageStore.addMessage(prompt);
 
   // Create writeProgress callback for web search tool
   const writeProgress = (progress: { title: string; content: string }) => {
@@ -63,6 +68,8 @@ export async function POST(req: NextRequest) {
     }
   ) as ReadableStream<string>;
 
+  console.log("[Chat API] Returning response stream");
+  
   return new NextResponse(responseStream, {
     headers: {
       "Content-Type": "text/event-stream",
@@ -70,6 +77,14 @@ export async function POST(req: NextRequest) {
       Connection: "keep-alive",
     },
   });
+  } catch (error) {
+    console.error("[Chat API] Error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json(
+      { error: `Chat failed: ${errorMessage}` },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET() {
