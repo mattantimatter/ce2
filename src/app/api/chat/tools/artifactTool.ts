@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import type { JSONSchema } from "openai/lib/jsonschema.mjs";
 import { createToolErrorMessage } from "./utils/toolErrorHandler";
+import OpenAI from "openai";
 
 /**
  * Artifact Generation Tool
@@ -49,33 +50,44 @@ export const artifactTool: RunnableToolFunctionWithParse<{
       try {
         console.log(`[Artifact Tool] Generating ${type} with prompt:`, prompt.substring(0, 100));
 
-        // Call our internal artifact API endpoint
-        const response = await fetch(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}/api/generate-artifact`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt,
-            type,
-            artifactId: `artifact-${type}-${Date.now()}`,
-          }),
+        const client = new OpenAI({
+          baseURL: "https://api.thesys.dev/v1/artifact",
+          apiKey: process.env.THESYS_API_KEY,
         });
 
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || `Artifact API returned ${response.status}`);
+        const artifact = await client.chat.completions.create({
+          model: "c1/artifact/v-20251030",
+          messages: [
+            {
+              role: "system",
+              content: `You are generating a ${type} artifact. Follow best practices for ${type === "slides" ? "presentation design with clear slides and visuals" : "comprehensive report writing with sections and analysis"}. Always cite sources used.`,
+            },
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          metadata: {
+            thesys: JSON.stringify({
+              c1_artifact_type: type,
+              id: `artifact-${type}-${Date.now()}`,
+            }),
+          },
+        });
+
+        const content = artifact.choices[0]?.message?.content;
+
+        if (!content) {
+          throw new Error("No content generated from artifact API");
         }
 
-        const result = await response.json();
-        console.log(`[Artifact Tool] Successfully generated ${type}`);
+        console.log(`[Artifact Tool] Successfully generated ${type}, content length:`, content.length);
 
         return {
           success: true,
           type,
-          content: result.content,
-          id: result.id,
-          message: `${type === "slides" ? "Slide presentation" : "Report"} generated successfully! The artifact is now displayed.`,
+          artifact: content,
+          message: `${type === "slides" ? "Slide presentation" : "Report"} generated successfully! The artifact should now be displayed above.`,
         };
       } catch (error) {
         console.error("[Artifact Tool] Error:", error);
@@ -89,4 +101,3 @@ export const artifactTool: RunnableToolFunctionWithParse<{
     strict: true,
   },
 };
-
