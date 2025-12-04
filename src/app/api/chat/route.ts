@@ -5,21 +5,10 @@ import { DBMessage, getMessageStore } from "./messageStore";
 import { tools } from "./tools";
 import { SYSTEM_PROMPTS } from "./systemPrompts";
 import { googleWebSearchTool } from "./tools/webSearchTool";
-import { MCPClient } from "./mcp";
-import { JSONSchema } from "openai/lib/jsonschema.mjs";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-// Initialize MCP client
-const mcpClient = new MCPClient();
-
-async function ensureMCPConnection(): Promise<void> {
-  if (mcpClient.tools.length === 0) {
-    await mcpClient.connect();
-  }
-}
 
 export async function POST(req: NextRequest) {
   const { prompt, threadId, responseId } = (await req.json()) as {
@@ -35,35 +24,13 @@ export async function POST(req: NextRequest) {
 
   messageStore.addMessage(prompt);
 
-  // Ensure MCP connection is established
-  await ensureMCPConnection();
-
   // Create writeProgress callback for web search tool
   const writeProgress = (progress: { title: string; content: string }) => {
     console.log(`[Web Search Progress] ${progress.title}: ${progress.content}`);
   };
 
-  // Convert MCP tools to OpenAI format with executable functions
-  const mcpToolsConverted = mcpClient.tools.map((tool) => ({
-    type: "function" as const,
-    function: {
-      name: tool.function.name,
-      description: tool.function.description || "",
-      parameters: tool.function.parameters as unknown as JSONSchema,
-      parse: JSON.parse,
-      function: async (args: unknown) => {
-        const results = await mcpClient.runTool({
-          tool_call_id: tool.function.name + Date.now().toString(),
-          name: tool.function.name,
-          args: args as Record<string, unknown>,
-        });
-        return results.content;
-      },
-    },
-  }));
-
-  // Combine all tools: static tools + web search + MCP tools
-  const allTools = [...tools, googleWebSearchTool(writeProgress), ...mcpToolsConverted];
+  // Combine all tools: static tools + web search
+  const allTools = [...tools, googleWebSearchTool(writeProgress)];
 
   const llmStream = await client.beta.chat.completions.runTools({
     model: `c1/openai/gpt-5/v-20250930`,

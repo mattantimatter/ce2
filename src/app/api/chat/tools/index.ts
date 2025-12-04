@@ -1,3 +1,4 @@
 export * from "./googleImage";
 export * from "./weather";
-// webSearchTool requires writeProgress callback - needs custom integration
+export * from "./artifactTool";
+// webSearchTool requires writeProgress callback - integrated in route.ts
