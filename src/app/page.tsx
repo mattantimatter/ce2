@@ -22,6 +22,14 @@ const ChatInternal = () => {
       .${portalThemeClassName} .crayon-chart-tooltip-content {
         backdrop-filter: blur(16px);
       }
+      
+      /* Hide the built-in category icons from C1Chat demo UI */
+      .${portalThemeClassName} [class*="category"],
+      .${portalThemeClassName} [class*="categories"],
+      .${portalThemeClassName} [aria-label*="category"],
+      .${portalThemeClassName} [role="navigation"] {
+        display: none !important;
+      }
     `}</style>
       <C1Chat 
         apiUrl="/api/chat" 

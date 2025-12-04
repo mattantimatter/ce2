@@ -132,9 +132,10 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
 
     return (
         <div 
-            className="fixed inset-0 z-10 flex flex-col items-center justify-center gap-8 pointer-events-none px-4 transition-all duration-300"
+            className="fixed top-0 bottom-0 z-10 flex flex-col items-center justify-center gap-8 pointer-events-none px-4 transition-all duration-300"
             style={{ 
-                marginLeft: '280px', // Account for sidebar
+                left: '280px', // Start after sidebar
+                right: '0',     // Extend to right edge
             }}
         >
             {/* Header */}
