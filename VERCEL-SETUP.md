@@ -72,3 +72,4 @@ Check the Vercel deployment logs:
 ✅ **Sample Prompts** - Click any prompt card to start
 ✅ **Artifacts** - Generate slides and reports
 
+

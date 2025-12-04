@@ -1,6 +1,11 @@
 @use "@crayonai/react-ui/scssUtils" as cssUtils;
 
+// Sidebar width variable for consistent spacing
+$sidebar-width: 280px;
+
 .chat-theme {
+    // Expose sidebar width as CSS variable
+    --sidebar-width: #{$sidebar-width};
     
       /* Base container styles */
       & :global(.crayon-shell-container) {
