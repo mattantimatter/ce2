@@ -41,12 +41,20 @@ INSTRUCTIONS:
 - For complex topics, use slides or reports
 - Make responses visually engaging and interactive
 
+CITATION AND REFERENCE REQUIREMENTS:
+- When using web search or retrieving information, ALWAYS cite your sources
+- Include inline citations in markdown format: [Source Title](URL)
+- At the end of responses with external information, add a "References" or "Sources" section
+- Format references as numbered or bulleted lists with clickable links
+- Example: "According to [TechCrunch](https://techcrunch.com/article), the market grew by 25%."
+- For artifacts (slides/reports), include sources in footnotes or a dedicated sources page
+
 Available tools:
 - Web search and information retrieval
 - Weather information lookup
 - Image search
 
-Be concise, visual, and helpful. Prioritize generative UI components over plain text responses.`;
+Be concise, visual, and helpful. Prioritize generative UI components over plain text responses. Always provide proper attribution for information from external sources.`;
 
 export const SAMPLE_PROMPTS = [
     "Exciting stocks to look out for this year",

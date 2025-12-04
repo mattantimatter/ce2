@@ -122,20 +122,19 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
 
     // Sample prompts for display
     const samplePrompts = [
-        { text: "Show me a line chart of stock price trends for Apple over the past year", icon: <ChartLineIcon /> },
-        { text: "Create an area chart showing website traffic growth over 6 months", icon: <ChartLineIcon /> },
-        { text: "Display a bar chart comparing quarterly sales by region", icon: <ChartLineIcon /> },
-        { text: "Generate a pie chart of market share by smartphone brand", icon: <ChartPieIcon /> },
+        { text: "Exciting stocks to look out for this year", icon: <ChartLineIcon /> },
+        { text: "Hidden travel gems to explore", icon: <ChartLineIcon /> },
+        { text: "Greatest blockbusters of all time", icon: <ChartPieIcon /> },
+        { text: "Tell me about global street food", icon: <ChartPieIcon /> },
     ];
 
     if (!isVisible) return null;
 
     return (
         <div 
-            className="fixed top-0 bottom-0 z-10 flex flex-col items-center justify-center gap-8 pointer-events-none px-4 transition-all duration-300"
+            className="fixed inset-0 z-10 flex flex-col items-center justify-center gap-8 pointer-events-none transition-all duration-300"
             style={{ 
-                left: '280px', // Start after sidebar
-                right: '0',     // Extend to right edge
+                paddingLeft: '280px', // Account for sidebar width
             }}
         >
             {/* Header */}
