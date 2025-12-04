@@ -4,6 +4,7 @@ import { transformStream } from "@crayonai/stream";
 import { DBMessage, getMessageStore } from "./messageStore";
 import { tools } from "./tools";
 import { SYSTEM_PROMPTS } from "./systemPrompts";
+import { googleWebSearchTool } from "./tools/webSearchTool";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";
@@ -23,6 +24,15 @@ export async function POST(req: NextRequest) {
 
   messageStore.addMessage(prompt);
 
+  // Create writeProgress callback for web search tool
+  const writeProgress = (progress: { title: string; content: string }) => {
+    console.log(`[Web Search Progress] ${progress.title}: ${progress.content}`);
+    // Progress is logged server-side, could be extended to stream to client
+  };
+
+  // Combine static tools with dynamic web search tool
+  const allTools = [...tools, googleWebSearchTool(writeProgress)];
+
   const llmStream = await client.beta.chat.completions.runTools({
     model: `c1/openai/gpt-5/v-20250930`,
     temperature: 1 as unknown as number,
@@ -31,8 +41,8 @@ export async function POST(req: NextRequest) {
       ...messageStore.getOpenAICompatibleMessageList(),
     ],
     stream: true,
-    tool_choice: tools.length > 0 ? "auto" : "none",
-    tools: tools,
+    tool_choice: allTools.length > 0 ? "auto" : "none",
+    tools: allTools,
   });
 
   const responseStream = transformStream(
