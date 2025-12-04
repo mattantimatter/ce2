@@ -223,13 +223,11 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({ currentTheme = 'da
 
     return (
         <div 
-            className="fixed top-1/2 left-0 right-0 z-10 flex flex-col items-center gap-6 pointer-events-none px-4 transition-all duration-300"
+            className="fixed top-1/2 z-10 flex flex-col items-center gap-6 pointer-events-none px-4 transition-all duration-300"
             style={{ 
-                paddingLeft: 'max(1rem, calc((100vw - 280px) * 0.05))', // Account for sidebar
-                paddingRight: 'max(1rem, calc(100vw * 0.05))',
-                marginLeft: '280px', // Sidebar width
-                transform: 'translateY(-50%)',
-                maxWidth: 'calc(100vw - 280px)' // Full width minus sidebar
+                left: 'calc(280px + (100vw - 280px) / 2)', // Sidebar + half of remaining space
+                transform: 'translate(-50%, -50%)', // Center horizontally and vertically
+                maxWidth: 'calc(100vw - 320px)' // Account for sidebar + padding
             }}
         >
             {/* Header */}
