@@ -15,11 +15,12 @@ export class MCPClient {
   }
 
   async connect() {
-    // Connect to fetch MCP server to access Thesys documentation
+    // Connect to filesystem MCP server (no authentication required)
     const command = "npx";
     const args = [
       "-y",
-      "@modelcontextprotocol/server-fetch@latest",
+      "@modelcontextprotocol/server-filesystem@latest",
+      process.cwd(),
     ];
 
     this.transport = new StdioClientTransport({
@@ -35,7 +36,7 @@ export class MCPClient {
       type: "function" as const,
       function: {
           name: tool.name,
-          description: tool.description || "Fetch content from URLs including Thesys documentation",
+          description: tool.description,
           parameters: tool.inputSchema,
       },
     }));
